@@ -49,7 +49,9 @@ Stacktrace for ThreadId=3200
 > c.Detach()                                                    
 Successfully detached from process PID=6152 Name=WpfApplication2
 
+
 ### Reminder
+
 Remember that attaching is an invasive process so do not try that in production environments. ClrMD is currently still in beta.
 
 
@@ -62,7 +64,6 @@ There is another great [script pack](https://github.com/hackedbrain/scriptcs.clr
 
 
 ### Todo
-
 
 * more coming soon ... *
 
