@@ -21,6 +21,10 @@ Succesfully attached to process PID=6152 Name=WpfApplication2
 
 // You can also use process name c.Attach("MyApplication")
 
+// Check current state
+> c.IsAttached 
+True           
+
 // Now you can access ClrMD API
 > c.Clr.Threads.Count
 2
@@ -55,6 +59,16 @@ Successfully detached from process PID=6152 Name=WpfApplication2
 ### Reminder
 
 Remember that attaching is an invasive process so do not try that in production environments. ClrMD is currently still in beta.
+
+### Troubleshooting
+
+ScriptCs.ClrDiagnostics lets you specify DAC file (*mscordacwks.dll*) location while attaching:
+
+```csharp
+> c.Attach(6152, @"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscordacwks.dll");
+```
+
+This may be useful when troubleshooting debugging problems arising from mismatched CLR versions.
 
 ### Todo
 
