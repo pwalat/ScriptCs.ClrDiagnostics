@@ -62,7 +62,7 @@ Remember that attaching is an invasive process so do not try that in production 
 
 ### Troubleshooting
 
-ScriptCs.ClrDiagnostics lets you specify DAC file (*mscordacwks.dll*) location while attaching:
+ScriptCs.ClrDiagnostics lets you specify DAC file (`mscordacwks.dll`) location while attaching:
 
 ```csharp
 > c.Attach(6152, @"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscordacwks.dll");
@@ -70,9 +70,15 @@ ScriptCs.ClrDiagnostics lets you specify DAC file (*mscordacwks.dll*) location w
 
 This may be useful when troubleshooting debugging problems arising from mismatched CLR versions.
 
-### Todo
 
 *more coming soon ...*
+
+```csharp
+> c.Play().ImperialMarch();
+```
+
+
+
 
 
 
