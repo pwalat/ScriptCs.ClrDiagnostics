@@ -3,8 +3,8 @@
 ScriptCS script pack that allows for interactive managed process diagnostics under REPL. Uses CLR Memory Diagnostics (ClrMD) library.
 
 ### Quick start
-	1. Install ScriptCS.ClrDiagnostics: ```scriptcs -install ScriptCs.ClrDiagnostics -pre```
-	2. Launch ScriptCS in REPL mode (you may need to get latest version for that): ```scriptcs.exe```
+	1. Install ScriptCS.ClrDiagnostics: `scriptcs -install ScriptCs.ClrDiagnostics -pre`
+	2. Launch ScriptCS in REPL mode (you may need to get latest version for that): `scriptcs.exe`
 	3. You should be able to load the script pack and attach to a process like this:
 	
 ```csharp
@@ -48,20 +48,11 @@ Stacktrace for ThreadId=3200
 // Detach when you are finished
 > c.Detach()                                                    
 Successfully detached from process PID=6152 Name=WpfApplication2
-
+```
 
 ### Reminder
 
 Remember that attaching is an invasive process so do not try that in production environments. ClrMD is currently still in beta.
-
-
-There is another great [script pack](https://github.com/hackedbrain/scriptcs.clrmd) that provides ClrMD integration - you may want to have a look there as well.
-
-*Although this one is more colorful and can play imperial march*
-
-```csharp
-	> c.Play().ImperialMarch()
-
 
 ### Todo
 
