@@ -3,9 +3,10 @@
 ScriptCS script pack that allows for interactive managed process diagnostics under REPL. Uses CLR Memory Diagnostics (ClrMD) library.
 
 ### Quick start
-	1. Install ScriptCS.ClrDiagnostics: *scriptcs -install ScriptCs.ClrDiagnostics -pre*
-	2. Launch ScriptCS in REPL mode (you may need to get latest version for that): `scriptcs.exe`
-	3. You should be able to load the script pack and attach to a process like this:
+
+* Install ScriptCS.ClrDiagnostics: `scriptcs -install ScriptCs.ClrDiagnostics -pre`
+* Launch ScriptCS in REPL mode (you may need to get latest version for that): `scriptcs.exe`
+* You should be able to load the script pack and attach to a process like this:
 	
 ```csharp
 
