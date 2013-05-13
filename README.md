@@ -23,6 +23,7 @@ Succesfully attached to process PID=6152 Name=WpfApplication2
 
 // Now you can access ClrMD API
 > c.Clr.Threads.Count
+2
 
 > c.Process.WorkingSet64
 51265536
