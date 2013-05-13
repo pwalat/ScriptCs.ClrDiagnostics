@@ -36,8 +36,6 @@ namespace ScriptCs.ClrDiagnostics
 
         public ClrInfo ClrInfo { get { return _clrInfo; } }
 
-        public IPlayer Play = new BeepPlayer();
-
         public ClrDiag()
         {
             _output = new ConsoleOutputWriter();
@@ -156,7 +154,7 @@ namespace ScriptCs.ClrDiagnostics
                 _output.Error("Unable to get CLR information.");
                 Detach();
             }
-            _output.GoodNews(String.Format("Succesfully attached to process PID={0} Name={1}",
+            _output.Success(String.Format("Succesfully attached to process PID={0} Name={1}",
                                            _process.Id, _process.ProcessName));
             Clr = runtime;
             return runtime;
@@ -164,6 +162,9 @@ namespace ScriptCs.ClrDiagnostics
 
         public void Detach()
         {
+            var name = _process.ProcessName;
+            var pid = _process.Id;
+
             _process = null;
             _clrInfo = null;
             Clr = null;
@@ -175,11 +176,13 @@ namespace ScriptCs.ClrDiagnostics
             _dataTarget.DebuggerInterface.DetachProcesses();
             _dataTarget.Dispose();
             _dataTarget = null;
+
+            _output.Success(String.Format("Successfully detached from process PID={0} Name={1}", pid, name));
         }
 
         public void PrintTypes(string typeFilter = "", int limit = 0)
         {
-            _console.WriteLine(String.Format("{0} \t\t {1} \t {2}", "Total size", "Count", "Name")
+            _console.WriteLine(String.Format("{0} \t {1} \t {2}", "Total size", "Count", "Name")
                 , ConsoleColor.DarkYellow);
             IEnumerable<TypeStat> types = Clr.GetTypesOnHeap(typeFilter);
 
@@ -190,7 +193,7 @@ namespace ScriptCs.ClrDiagnostics
             
             foreach (var typeStat in types)
             {
-                _console.WriteLine(String.Format("{0} \t\t {1} \t {2}",
+                _console.WriteLine(String.Format("{0} \t {1} \t {2}",
                     BytesToString(typeStat.Size), typeStat.Count, typeStat.Name),
                     ConsoleColor.White);
             }
@@ -219,6 +222,11 @@ namespace ScriptCs.ClrDiagnostics
                 _console.WriteLine(String.Format("{0,12:X} {1,12:X} {2}", frame.InstructionPointer, frame.StackPointer,
                                    frame.DisplayString));
             }
+        }
+
+        public IPlayer Play()
+        {
+            return new BeepPlayer();
         }
 
         // http://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net

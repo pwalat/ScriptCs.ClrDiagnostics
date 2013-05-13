@@ -8,7 +8,7 @@ namespace ScriptCs.ClrDiagnostics.Output
     interface IWriteOutput
     {
         void Info(string text);
-        void GoodNews(string text);
+        void Success(string text);
         void Error(string text);
         void Warning(string text);
     }

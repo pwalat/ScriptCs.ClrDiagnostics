@@ -17,7 +17,7 @@ namespace ScriptCs.ClrDiagnostics.Output
             _console.WriteLine(text, ConsoleColor.White);
         }
 
-        public void GoodNews(string text)
+        public void Success(string text)
         {
             _console.WriteLine(text, ConsoleColor.Green);
         }
