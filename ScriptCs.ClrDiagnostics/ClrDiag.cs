@@ -42,30 +42,30 @@ namespace ScriptCs.ClrDiagnostics
             _console = new SystemConsole();
         }
 
-        public ClrRuntime Attach(int pid, string dacFile = null, uint attachTimeout = DefaultAttachTimeout)
+        public bool Attach(int pid, string dacFile = null, uint attachTimeout = DefaultAttachTimeout)
         {
             Process process = Process.GetProcessById(pid);
             return Attach(process, dacFile, attachTimeout);
         }
 
-        public ClrRuntime Attach(string processName, string dacFile = null, uint attachTimeout = DefaultAttachTimeout)
+        public bool Attach(string processName, string dacFile = null, uint attachTimeout = DefaultAttachTimeout)
         {
             Process[] processes = Process.GetProcessesByName(processName);
             if (processes.Length == 0)
             {
                 _output.Error(String.Format("No process with name {0} has been found. Unable to attach.", processName));
-                return null;
+                return false;
             }
             if (processes.Length > 1)
             {
                 _output.Error(String.Format("Multiple processes with name {0} found. Attach using PID.", processName));
-                return null;
+                return false;
             }
 
             return Attach(processes[0], dacFile, attachTimeout);
         }
 
-        public ClrRuntime Attach(Process process, string dacFile = null, uint attachTimeout = DefaultAttachTimeout)
+        public bool Attach(Process process, string dacFile = null, uint attachTimeout = DefaultAttachTimeout)
         {
             if (process == null)
             {
@@ -77,7 +77,7 @@ namespace ScriptCs.ClrDiagnostics
             {
                 _output.Error(String.Format("Already attached to process PID={0} Name={1}",
                     _process.Id, _process.ProcessName));
-                return null;
+                return false;
             }
 
             _output.Info(String.Format("Attaching to process PID={0}",
@@ -102,7 +102,7 @@ namespace ScriptCs.ClrDiagnostics
                 //TODO: Be more specific, what exactly does it mean?
                 _output.Error("Could not attach to the process.");
                 _process = null;
-                return null;
+                return false;
             }
             _dataTarget.DebuggerInterface.SetProcessOptions(DEBUG_PROCESS.DETACH_ON_EXIT);
 
@@ -114,7 +114,7 @@ namespace ScriptCs.ClrDiagnostics
                 _output.Error(msg);
 
                 Detach();
-                return null;
+                return false;
             }
             if (_dataTarget.ClrVersions.Count > 1)
             {
@@ -143,7 +143,7 @@ namespace ScriptCs.ClrDiagnostics
                 _output.Error("Could not automatically locate Data Access Component (mscordacwks.dll). This may mean that bitness or CLR versions do not match. " +
                               "You may specify file location manually eg. ClrDiag.Attach(PID, @\"C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscordacwks.dll\"");
                 Detach();
-                return null;
+                return false;
             }
 
             ClrRuntime runtime = _dataTarget.CreateRuntime(dacLocation);
@@ -157,7 +157,7 @@ namespace ScriptCs.ClrDiagnostics
             _output.Success(String.Format("Succesfully attached to process PID={0} Name={1}",
                                            _process.Id, _process.ProcessName));
             Clr = runtime;
-            return runtime;
+            return true;
         }
 
         public void Detach()

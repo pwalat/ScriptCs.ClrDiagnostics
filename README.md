@@ -4,6 +4,7 @@ ScriptCS script pack that allows for interactive managed process diagnostics und
 
 ### Quick start
 
+* Install ScriptCS using nightly builds `cinst scriptcs -pre -source https://www.myget.org/F/scriptcsnightly/`
 * Install ScriptCS.ClrDiagnostics: `scriptcs -install ScriptCs.ClrDiagnostics -pre`
 * Launch ScriptCS in REPL mode (you may need to get latest version for that): `scriptcs.exe`
 * You should be able to load the script pack and attach to a process like this:
